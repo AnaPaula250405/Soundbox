@@ -17,6 +17,14 @@ export class MusicLibrary {
     this.songs.push(song);
   }
 
+  // Elimina una canción de la biblioteca por su ID
+  public removeSong(id: number): boolean {
+    const index = this.songs.findIndex((s) => s.id === id);
+    if (index === -1) return false;
+    this.songs.splice(index, 1);
+    return true;
+  }
+
   public getAllSongs(): Song[] {
     return [...this.songs];
   }
@@ -64,6 +72,16 @@ export class MusicLibrary {
     return this.playlists.find(
       (p) => p.name.toLowerCase() === name.toLowerCase()
     );
+  }
+
+  // Elimina una playlist por nombre
+  public removePlaylist(name: string): boolean {
+    const index = this.playlists.findIndex(
+      (p) => p.name.toLowerCase() === name.toLowerCase()
+    );
+    if (index === -1) return false;
+    this.playlists.splice(index, 1);
+    return true;
   }
 
   // ── ESTADÍSTICAS ───────────────────────────────────────────
