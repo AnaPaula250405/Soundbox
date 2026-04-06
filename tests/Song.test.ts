@@ -34,4 +34,19 @@ describe("Song", () => {
     expect(text).toContain("Blinding Lights");
     expect(text).toContain("The Weeknd");
   });
+
+  test("isFavorite debe ser false por defecto", () => {
+    expect(song.isFavorite).toBe(false);
+  });
+
+  test("toggleFavorite debe marcar la canción como favorita", () => {
+    song.toggleFavorite();
+    expect(song.isFavorite).toBe(true);
+  });
+
+  test("toggleFavorite debe desmarcar la canción si ya era favorita", () => {
+    song.toggleFavorite();
+    song.toggleFavorite();
+    expect(song.isFavorite).toBe(false);
+  });
 });
