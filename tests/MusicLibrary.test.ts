@@ -12,7 +12,6 @@ describe("MusicLibrary", () => {
     song1 = new Song("Blinding Lights", "The Weeknd", "After Hours", 200, "Pop");
     song2 = new Song("Bohemian Rhapsody", "Queen", "A Night at the Opera", 354, "Rock");
     song3 = new Song("God's Plan", "Drake", "Scorpion", 198, "Hip-Hop");
-
     library.addSong(song1);
     library.addSong(song2);
     library.addSong(song3);
@@ -67,3 +66,45 @@ describe("MusicLibrary", () => {
     const stats = library.getStats() as {
       totalSongs: number;
       totalPlaylists: number;
+      totalGenres: number;
+      totalArtists: number;
+      totalFavorites: number;
+    };
+    expect(stats.totalSongs).toBe(3);
+    expect(stats.totalGenres).toBe(3);
+    expect(stats.totalArtists).toBe(3);
+    expect(stats.totalFavorites).toBe(0);
+  });
+
+  test("getFavoriteSongs debe retornar solo las canciones favoritas", () => {
+    song1.toggleFavorite();
+    song3.toggleFavorite();
+    const favs = library.getFavoriteSongs();
+    expect(favs).toHaveLength(2);
+    expect(favs[0].title).toBe("Blinding Lights");
+    expect(favs[1].title).toBe("God's Plan");
+  });
+
+  test("getFavoriteSongs debe retornar array vacío si no hay favoritas", () => {
+    const favs = library.getFavoriteSongs();
+    expect(favs).toHaveLength(0);
+  });
+
+  test("removeSong debe eliminar una canción por ID", () => {
+    const result = library.removeSong(song1.id);
+    expect(result).toBe(true);
+    expect(library.getAllSongs()).toHaveLength(2);
+  });
+
+  test("removeSong debe retornar false si la canción no existe", () => {
+    const result = library.removeSong(9999);
+    expect(result).toBe(false);
+  });
+
+  test("removePlaylist debe eliminar una playlist por nombre", () => {
+    library.createPlaylist("Rock");
+    const result = library.removePlaylist("Rock");
+    expect(result).toBe(true);
+    expect(library.findPlaylist("Rock")).toBeUndefined();
+  });
+});
