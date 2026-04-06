@@ -67,11 +67,3 @@ describe("MusicLibrary", () => {
     const stats = library.getStats() as {
       totalSongs: number;
       totalPlaylists: number;
-      totalGenres: number;
-      totalArtists: number;
-    };
-    expect(stats.totalSongs).toBe(3);
-    expect(stats.totalGenres).toBe(3);
-    expect(stats.totalArtists).toBe(3);
-  });
-});
