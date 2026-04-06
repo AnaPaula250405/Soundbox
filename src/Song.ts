@@ -8,6 +8,7 @@ export class Song {
   public album: string;
   public durationSeconds: number;
   public genre: string;
+  public isFavorite: boolean;
 
   constructor(
     title: string,
@@ -22,6 +23,7 @@ export class Song {
     this.album = album;
     this.durationSeconds = durationSeconds;
     this.genre = genre;
+    this.isFavorite = false;
   }
 
   // Retorna la duración en formato mm:ss
@@ -31,8 +33,14 @@ export class Song {
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   }
 
+  // Marca o desmarca la canción como favorita
+  public toggleFavorite(): void {
+    this.isFavorite = !this.isFavorite;
+  }
+
   // Muestra la info de la canción como texto
   public toString(): string {
-    return `[${this.id}] "${this.title}" - ${this.artist} | ${this.album} | ${this.getFormattedDuration()} | ${this.genre}`;
+    const fav = this.isFavorite ? "❤️" : "🎵";
+    return `${fav} [${this.id}] "${this.title}" - ${this.artist} | ${this.album} | ${this.getFormattedDuration()} | ${this.genre}`;
   }
 }
