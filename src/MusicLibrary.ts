@@ -42,6 +42,11 @@ export class MusicLibrary {
     );
   }
 
+  // Retorna solo las canciones marcadas como favoritas
+  public getFavoriteSongs(): Song[] {
+    return this.songs.filter((s) => s.isFavorite);
+  }
+
   // ── PLAYLISTS ──────────────────────────────────────────────
 
   public createPlaylist(name: string): Playlist {
@@ -68,12 +73,14 @@ export class MusicLibrary {
     const totalPlaylists = this.playlists.length;
     const genres = [...new Set(this.songs.map((s) => s.genre))];
     const artists = [...new Set(this.songs.map((s) => s.artist))];
+    const totalFavorites = this.getFavoriteSongs().length;
 
     return {
       totalSongs,
       totalPlaylists,
       totalGenres: genres.length,
       totalArtists: artists.length,
+      totalFavorites,
       genres,
     };
   }
